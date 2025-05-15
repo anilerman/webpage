@@ -1,0 +1,39 @@
+.studio-container {
+  padding: 130px 40px 80px;
+}
+.studio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 30px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+.studio-grid img {
+  width: 100%;
+  max-width: 160px;
+  height: auto;
+  border-radius: 50%;
+}
+.studio-grid p {
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+.contributors-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.contributors-list {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+@media (max-width: 768px) {
+  .studio-grid {{
+    grid-template-columns: 1fr 1fr;
+  }}
+}
+@media (max-width: 480px) {
+  .studio-grid {{
+    grid-template-columns: 1fr;
+  }}
+}

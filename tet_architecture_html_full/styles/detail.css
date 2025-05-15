@@ -1,0 +1,49 @@
+.detail-container {
+  padding: 120px 40px 60px;
+}
+.main-image img {
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 20px;
+}
+.thumbnail-bar {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+.thumbnail-bar img {
+  height: 70px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  flex-shrink: 0;
+}
+.thumbnail-bar img:hover {
+  border-color: #000;
+}
+.project-info h2 {
+  font-size: 1.5rem;
+}
+.project-info .meta {
+  color: #777;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+.project-info .desc {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+@media (max-width: 768px) {
+  .thumbnail-bar img {
+    height: 50px;
+  }
+  .project-info h2 {
+    font-size: 1.2rem;
+  }
+  .project-info .desc {
+    font-size: 0.9rem;
+  }
+}
