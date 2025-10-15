@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DEÜ Depark Gama Binası ve Çevre Düzenlemesi Davetli Yarışması – Katılımcı</title>
+  <link rel="stylesheet" href="styles/global.css" />
+  <link rel="stylesheet" href="styles/detail.css" />
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo">TET</a>
+    <nav>
+      <a href="projects.html">Projeler</a>
+      <a href="awards.html">Ödüller</a>
+      <a href="#">Arama</a>
+      <a href="studio.html">Stüdyo</a>
+      <a href="contact.html">İletişim</a>
+    </nav>
+  </header>
+
+  <main class="detail-container">
+    <div class="main-image">
+      <img id="mainDisplay" src="assets/projects/proj8/1.jpg" alt="DEÜ Depark Gama Binası ve Çevre Düzenlemesi Davetli Yarışması – Katılımcı" />
+    </div>
+    <div class="thumbnail-bar" id="thumbnailBar"></div>
+    <div class="project-info">
+      <h2>DEÜ Depark Gama Binası ve Çevre Düzenlemesi Davetli Yarışması – Katılımcı</h2>
+      <p class="meta">Lokasyon: Balçova,İzmir<br>Tarih: Haziran, 2022<br>İşveren: Dokuz Eylül Üniversitesi</p>
+      <p class="desc">Proje Tipi: Davetli Yarışma, Eğitim, Ofis, Ar-Ge, Rekreasyon<br>İnşaat Alanı: 44.818 m²<br>Ekip: Halil Baha Akyar, Seden Cinasal, Ramazan Avcı, Nil Özkır, Gülay Karip, Berin Barut, İrem Malgaş, Özlem Kurtcu, Ece Kavafoğlu, Merve Şen Cüzdancı, Meryem Merve Topdaş, Taylan Özgür Aksoy, Cahit Doğruer, Dilan Özdemir, Selinnur Demirel, Yaşar Aydoğan<br>Danışmanlar: Ayşe Nihan Dağoğlu, Özge Süvari</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>2025 TET, All rights reserved.</p>
+    <div class="socials">
+      <a href="https://www.linkedin.com/company/83052935/admin/dashboard/"><img src="assets/icons/linkedin.png" /></a>
+      <a href="https://www.instagram.com/tet.architects/"><img src="assets/icons/instagram.png" /></a>
+    </div>
+  </footer>
+
+  <script>
+    const count = 60;
+    const id = 8;
+    const mainDisplay = document.getElementById("mainDisplay");
+    const thumbnailBar = document.getElementById("thumbnailBar");
+
+    for (let i = 1; i <= count; i++) {
+      const img = new Image();
+      img.src = `assets/projects/proj${id}/${i}.jpg`;
+      img.onerror = () => {};
+      img.onload = () => {
+        const thumb = document.createElement("img");
+        thumb.src = img.src;
+        thumb.onclick = () => {
+          mainDisplay.src = thumb.src;
+        };
+        thumbnailBar.appendChild(thumb);
+      };
+    }
+  </script>
+</body>
+</html>

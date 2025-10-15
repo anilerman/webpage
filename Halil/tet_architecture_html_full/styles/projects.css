@@ -1,0 +1,65 @@
+.projects-container {
+  padding: 120px 40px 60px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.project-box {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+.project-box img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.project-box .overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255,255,255,0.9);
+  padding: 12px;
+  text-align: center;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  color: black;
+}
+.project-box .overlay h3 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.project-box .overlay .year {
+  font-size: 1rem;
+  color: black;
+  margin: 0;
+}
+.project-box:hover img {
+  transform: scale(1.05);
+}
+.project-box:hover .overlay {
+  transform: translateY(0%);
+}
+
+/* Responsive grid columns */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .project-box .overlay h3 {
+    font-size: 1rem;
+  }
+  .project-box .overlay .year {
+    font-size: 0.9rem;
+  }
+}

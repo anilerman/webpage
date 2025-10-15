@@ -47,26 +47,12 @@
 }
 
 /* Responsive grid columns */
-@media (max-width: 1400px) {
-  .projects-container {
-    padding: 100px 24px 48px;
-  }
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
 @media (max-width: 1024px) {
-  .projects-container {
-    padding: 80px 12px 32px;
-  }
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 @media (max-width: 600px) {
-  .projects-container {
-    padding: 56px 4px 16px;
-  }
   .grid {
     grid-template-columns: 1fr;
   }
@@ -75,8 +61,5 @@
   }
   .project-box .overlay .year {
     font-size: 0.9rem;
-  }
-  .project-box .overlay {
-    padding: 8px 4px;
   }
 }
