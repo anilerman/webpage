@@ -1,4 +1,5 @@
 name: Deploy webpage to cPanel
+run-name: "Deploy: ${{ github.event.head_commit.message }}"
 
 on:
   push:
@@ -49,7 +50,14 @@ jobs:
         run: |
           # IMPORTANT:
           # Use ./Halil/ (trailing slash) to sync the CONTENTS of Halil into public_html
-          rsync -avz --delete --exclude='.git' \
+          # img ve assets altındaki .webp dosyaları ve klasörleri sunucuda korunur, silinmez ve güncellenmez
+          rsync -avz --delete \
+            --exclude='.git' \
+            --exclude='img/***' \
+            --exclude='assets/awards/***' \
+            --exclude='assets/home/***' \
+            --exclude='assets/projects/***' \
+            --exclude='assets/studio/***' \
             -e "ssh -i ~/.ssh/github_actions_ed25519 -p ${{ secrets.SSH_PORT }} -o BatchMode=yes -o StrictHostKeyChecking=yes" \
             ./Halil/ \
             "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/public_html/"
