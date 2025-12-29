@@ -47,7 +47,9 @@ jobs:
       - name: Deploy to cPanel public_html
         shell: bash
         run: |
+          # IMPORTANT:
+          # Use ./Halil/ (trailing slash) to sync the CONTENTS of Halil into public_html
           rsync -avz --delete --exclude='.git' \
             -e "ssh -i ~/.ssh/github_actions_ed25519 -p ${{ secrets.SSH_PORT }} -o BatchMode=yes -o StrictHostKeyChecking=yes" \
-            ./ \
+            ./Halil/ \
             "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/public_html/"
