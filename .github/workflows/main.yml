@@ -7,6 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -21,11 +22,18 @@ jobs:
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
 
-          printf "%s" "${{ secrets.SSH_KEY }}" > ~/.ssh/github_actions_ed25519
+          # Decode private key from base64 secret (prevents newline/format corruption)
+          echo "${{ secrets.SSH_KEY_B64 }}" | base64 -d > ~/.ssh/github_actions_ed25519
           chmod 600 ~/.ssh/github_actions_ed25519
 
+          # Add server host key (no interactive prompt)
           ssh-keyscan -p "${{ secrets.SSH_PORT }}" -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
+
+      - name: Verify key is readable
+        shell: bash
+        run: |
+          ssh-keygen -lf ~/.ssh/github_actions_ed25519
 
       - name: Test SSH connection
         shell: bash
