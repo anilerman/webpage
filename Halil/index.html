@@ -3,30 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home</title>
-  <link rel="stylesheet" href="styles/global.css" />
-  <link rel="stylesheet" href="styles/home.css" />
-  <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>TET</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TET Architects</title>
+  <meta name="description" content="TET Architects - Mimari planlama, tasarım ve inşa">
 
-  <!-- <link rel="manifest" href="site.webmanifest"> -->
-  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
-  <!-- Place favicon.ico in the root directory -->
+  <!-- Preload kritik kaynaklar -->
+  <link rel="preload" href="assets/home/Slider/home1.webp" as="image">
+  <link rel="preconnect" href="https://code.jquery.com">
+  
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.webp">
 
-  <!-- CSS here -->
+  <!-- Kritik CSS -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/owl.carousel.min.css">
-  <link rel="stylesheet" href="css/magnific-popup.css">
-  <link rel="stylesheet" href="css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/themify-icons.css">
-  <link rel="stylesheet" href="css/nice-select.css">
-  <link rel="stylesheet" href="css/flaticon.css">
-  <link rel="stylesheet" href="css/animate.css">
-  <link rel="stylesheet" href="css/slicknav.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="styles/global.css">
+  <link rel="stylesheet" href="styles/home.css">
+  
+  <!-- Non-kritik CSS - async yükleme -->
+  <link rel="stylesheet" href="css/owl.carousel.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/magnific-popup.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/font-awesome.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/themify-icons.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/nice-select.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/flaticon.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/animate.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="css/slicknav.css" media="print" onload="this.media='all'">
   <!-- <link rel="stylesheet" href="css/responsive.css"> -->
   <style>
       #navigation a {
@@ -38,20 +39,20 @@
 <body>
   <div class="hero">
   <div class="hero-slider owl-carousel">
-    <div><img src="assets/home/Slider/home1.jpg" alt="Slider 1"></div>
-    <div><img src="assets/home/Slider/home2.jpg" alt="Slider 2"></div>
-    <div><img src="assets/home/Slider/home3.jpg" alt="Slider 3"></div>
-    <div><img src="assets/home/Slider/home4.jpg" alt="Slider 4"></div>
-    <div><img src="assets/home/Slider/home5.jpg" alt="Slider 5"></div>
-    <div><img src="assets/home/Slider/home6.jpg" alt="Slider 6"></div>
-    <div><img src="assets/home/Slider/home7.jpg" alt="Slider 7"></div>
-    <div><img src="assets/home/Slider/home8.jpg" alt="Slider 8"></div>
-    <div><img src="assets/home/Slider/home9.jpg" alt="Slider 9"></div>
-    <div><img src="assets/home/Slider/home10.jpg" alt="Slider 10"></div>
+    <div><img src="assets/home/Slider/home1.webp" alt="Slider 1" fetchpriority="high"></div>
+    <div><img src="assets/home/Slider/home2.webp" alt="Slider 2" loading="lazy"></div>
+    <div><img src="assets/home/Slider/home3.webp" alt="Slider 3" loading="lazy"></div>
+    <div><img src="assets/home/Slider/home4.webp" alt="Slider 4" loading="lazy"></div>
+    <div><img src="assets/home/Slider/home5.webp" alt="Slider 5" loading="lazy"></div>
+    <div><img src="assets/home/Slider/home6.webp" alt="Slider 6" loading="lazy"></div>
+    <div><img src="assets/home/Slider/home7.webp" alt="Slider 7" loading="lazy"></div>
+    <div><img src="assets/home/Slider/home8.webp" alt="Slider 8" loading="lazy"></div>
+    <div><img src="assets/home/Slider/home9.webp" alt="Slider 9" loading="lazy"></div>
+    <div><img src="assets/home/Slider/home10.webp" alt="Slider 10" loading="lazy"></div>
 
   </div>
   <header class="hero-header">
-    <a href="index.html" class="logo"><img src="assets/logo.png" alt="TET Logo" /></a>
+   </a><a href="index.html" class="logo">TET</a></a>
     <nav>
       <a href="projects.html">Projeler</a>
       <a href="awards.html">Ödüller</a>
@@ -69,7 +70,7 @@
           <div class="row align-items-center">
               <div class="col-xl-6 col-md-6">
                   <div class="about_thumb">
-                      <img src="img/about/1.png" alt="">
+                      <img src="img/about/1.webp" alt="" loading="lazy">
                       <div class="exprience">
                           <h1>3</h1>
                           <span>uzman kadro</span>
@@ -115,7 +116,7 @@
               <div class="col-xl-4 col-md-4">
                   <div class="single_dream text-center">
                       <div class="thumb">
-                          <img src="img/dream/1.png" alt="">
+                          <img src="img/dream/1.webp" alt="">
                       </div>
                       <h3>iç mekan</h3>
                       <p>estetik ve işlevselliği bir araya getirerek yaşam alanlarınıza değer katıyoruz.</p>
@@ -124,7 +125,7 @@
               <div class="col-xl-4 col-md-4">
                   <div class="single_dream text-center">
                       <div class="thumb">
-                          <img src="img/dream/2.png" alt="">
+                          <img src="img/dream/2.webp" alt="">
                       </div>
                       <h3>park ve bahçe tasarımı</h3>
                       <p>doğayla uyumlu, estetik ve işlevsel park ve bahçe tasarımları sunuyoruz.</p>
@@ -133,7 +134,7 @@
               <div class="col-xl-4 col-md-4">
                   <div class="single_dream text-center">
                       <div class="thumb">
-                          <img src="img/dream/3.png" alt="">
+                          <img src="img/dream/3.webp" alt="">
                       </div>
                       <h3>ev ve villa tasarımı</h3>
                       <p>modern ve özgün tasarımlarla hayalinizdeki ev ve villaları gerçeğe dönüştürüyoruz.</p>
@@ -155,7 +156,7 @@
                       <div class="footer_widget">
                           <div class="footer_logo">
                               <a href="index.html">
-                                  <img src="img/footer-logo.png" alt="">
+                                  <img src="img/footer-logo.webp" alt="">
                               </a>
                           </div>
                           <ul class="social_links">

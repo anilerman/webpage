@@ -9,7 +9,7 @@
 </head>
 <body>
   <header>
-    <a href="index.html" class="logo">TET</a>
+    </a><a href="index.html" class="logo">TET</a></a>
     <nav>
       <a href="projects.html">Projeler</a>
       <a href="awards.html">Ödüller</a>
@@ -21,7 +21,7 @@
 
   <main class="detail-container">
     <div class="main-image">
-      <img id="mainDisplay" src="assets/projects/proj11/1.jpg" alt="Bir Uygarlık Odağı Olarak Şehir Meclisleri Binası için Fikir Projesi Yarışması – Katılımcı" />
+      <img id="mainDisplay" src="assets/projects/proj11/1.webp" alt="Bir Uygarlık Odağı Olarak Şehir Meclisleri Binası için Fikir Projesi Yarışması – Katılımcı" />
     </div>
     <div class="thumbnail-bar" id="thumbnailBar"></div>
     <div class="project-info">
@@ -34,8 +34,8 @@
   <footer>
     <p>2025 TET, All rights reserved.</p>
     <div class="socials">
-      <a href="https://www.linkedin.com/company/83052935/admin/dashboard/"><img src="assets/icons/linkedin.png" /></a>
-      <a href="https://www.instagram.com/tet.architects/"><img src="assets/icons/instagram.png" /></a>
+      <a href="https://www.linkedin.com/company/83052935/admin/dashboard/"><img src="assets/icons/linkedin.webp" /></a>
+      <a href="https://www.instagram.com/tet.architects/"><img src="assets/icons/instagram.webp" /></a>
     </div>
   </footer>
 
@@ -47,11 +47,12 @@
 
     for (let i = 1; i <= count; i++) {
       const img = new Image();
-      img.src = `assets/projects/proj${id}/${i}.jpg`;
+      img.src = `assets/projects/proj${id}/${i}.webp`;
       img.onerror = () => {};
       img.onload = () => {
         const thumb = document.createElement("img");
         thumb.src = img.src;
+        thumb.loading = "lazy";
         thumb.onclick = () => {
           mainDisplay.src = thumb.src;
         };
