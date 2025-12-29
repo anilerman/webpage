@@ -54,6 +54,7 @@ jobs:
           rsync -avz --delete \
             --exclude='.git' \
             --exclude='img/***' \
+            --exclude='assets/logo.webp' \
             --exclude='assets/awards/***' \
             --exclude='assets/home/***' \
             --exclude='assets/projects/***' \
