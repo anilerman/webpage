@@ -2,13 +2,11 @@ name: Deploy webpage to cPanel
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -23,29 +21,25 @@ jobs:
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
 
-          # Write private key from secret (IMPORTANT: secret must include full multi-line key)
-          # If your key is RSA, you may rename to id_rsa and adjust the ssh -i path below.
-          printf "%s" "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
+          printf "%s" "${{ secrets.SSH_KEY }}" > ~/.ssh/github_actions_ed25519
+          chmod 600 ~/.ssh/github_actions_ed25519
 
-          # Add server to known_hosts to avoid interactive prompt
           ssh-keyscan -p "${{ secrets.SSH_PORT }}" -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
       - name: Test SSH connection
         shell: bash
         run: |
-          ssh -i ~/.ssh/id_ed25519 \
+          ssh -i ~/.ssh/github_actions_ed25519 \
             -p "${{ secrets.SSH_PORT }}" \
             -o BatchMode=yes \
             -o StrictHostKeyChecking=yes \
-            "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" \
-            "echo SSH_OK"
+            "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" "echo SSH_OK"
 
       - name: Deploy to cPanel public_html
         shell: bash
         run: |
           rsync -avz --delete --exclude='.git' \
-            -e "ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.SSH_PORT }} -o BatchMode=yes -o StrictHostKeyChecking=yes" \
+            -e "ssh -i ~/.ssh/github_actions_ed25519 -p ${{ secrets.SSH_PORT }} -o BatchMode=yes -o StrictHostKeyChecking=yes" \
             ./ \
             "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/public_html/"
