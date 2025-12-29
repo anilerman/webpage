@@ -1,6 +1,34 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    <style>
+          .hero-header {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92vw;
+            max-width: 1400px;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 18px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0.18) 100%);
+            backdrop-filter: blur(24px) saturate(180%) brightness(1.15);
+            -webkit-backdrop-filter: blur(24px) saturate(180%) brightness(1.15);
+            border-radius: 48px;
+            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
+            border: 2.5px solid rgba(255,255,255,0.38);
+            transition: background 0.3s, box-shadow 0.3s;
+          }
+      .logo img {
+        height: 48px;
+        width: auto;
+        object-fit: contain;
+        display: inline-block;
+      }
+    </style>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Food Center Etimesgut</title>
@@ -8,12 +36,11 @@
   <link rel="stylesheet" href="styles/detail.css" />
 </head>
 <body>
-  <header>
-    </a><a href="index.html" class="logo">TET</a></a>
+  <header class="hero-header">
+    <a href="index.html" class="logo"><img src="assets/logo.webp" alt="TET Architects Logo"></a>
     <nav>
       <a href="projects.html">Projeler</a>
       <a href="awards.html">Ödüller</a>
-      <a href="#">Arama</a>
       <a href="studio.html">Stüdyo</a>
       <a href="contact.html">İletişim</a>
     </nav>

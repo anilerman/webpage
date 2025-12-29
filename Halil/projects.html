@@ -4,45 +4,65 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Projeler</title>
+  </head>
   <link rel="stylesheet" href="styles/global.css" />
   <link rel="stylesheet" href="styles/projects.css" />
+  <style>
+      .hero-header {
+        position: fixed;
+        top: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 92vw;
+        max-width: 1400px;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4px 18px;
+        background: linear-gradient(90deg, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0.18) 100%);
+        backdrop-filter: blur(24px) saturate(180%) brightness(1.15);
+        -webkit-backdrop-filter: blur(24px) saturate(180%) brightness(1.15);
+        border-radius: 48px;
+        box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
+        border: 2.5px solid rgba(255,255,255,0.38);
+        transition: background 0.3s, box-shadow 0.3s;
+      }
+      .hero-header nav a {
+        color: #111;
+        font-weight: bold;
+        font-size: 22px;
+        margin-left: 32px;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .hero-header nav a:hover {
+        color: #0077b6;
+      }
+      .logo img {
+        height: 48px;
+        width: auto;
+        object-fit: contain;
+        display: inline-block;
+      }
+    </style>
 </head>
 <body>
-
-      </div>
-    </a>
-
-    <a href="project-detail-5.html" class="project-box">
-      <img loading="lazy" src="assets/projects/proj5/1.webp" alt="Food Center Etimesgut" width="800" height="600" srcset="assets/projects/proj5/1.webp 800w, assets/projects/proj5/1.webp 400w" sizes="(max-width: 600px) 100vw, 800px" />
-      <div class="overlay">
-        <h3>Food Center Etimesgut</h3>
-        <p class="year">2023</p>
-      </div>
-    </a>
-
-    <a href="project-detail-6.html" class="project-box">
-      <img loading="lazy" src="assets/projects/proj6/1.webp" alt="İncek Villa" width="800" height="600" srcset="assets/projects/proj6/1.webp 800w, assets/projects/proj6/1.webp 400w" sizes="(max-width: 600px) 100vw, 800px" />
-      <div class="overlay">
-        <h3>İncek Villa</h3>
-        <p class="year">2022</p>
-      </div>
-    </a>
-
-    <a href="project-detail-7.html" class="project-box">
-      <img loading="lazy" src="assets/projects/proj7/1.webp" alt="Twin İncek" width="800" height="600" srcset="assets/projects/proj7/1.webp 800w, assets/projects/proj7/1.webp 400w" sizes="(max-width: 600px) 100vw, 800px" />
-      <div class="overlay">
-        <h3>Twin İncek</h3>
-        <p class="year">2022</p>
-      </div>
-    </a>
-
-    <a href="project-detail-8.html" class="project-box">
-      <img loading="lazy" src="assets/projects/proj8/1.webp" alt="DEÜ Depark Gama Binası ve Çevre Düzenlemesi Davetli Yarışması – Katılımcı" width="800" height="600" srcset="assets/projects/proj8/1.webp 800w, assets/projects/proj8/1.webp 400w" sizes="(max-width: 600px) 100vw, 800px" />
-      <div class="overlay">
-        <h3>DEÜ Depark Gama Binası ve Çevre Düzenlemesi Davetli Yarışması – Katılımcı</h3>
-        <p class="year">2022</p>
-      </div>
-    </a>
+  <div class="hero">
+    <header class="hero-header">
+      <a href="index.html" class="logo"><img src="assets/logo.webp" alt="TET Architects Logo"></a>
+      <nav>
+        <a href="projects.html">Projeler</a>
+        <a href="awards.html">Ödüller</a>
+        <a href="studio.html">Stüdyo</a>
+        <a href="contact.html">İletişim</a>
+      </nav>
+    </header>
+    <main>
+      <div class="projects-list">
+        <!-- Proje kutuları başlangıcı -->
+        <!-- Proje kutuları ve içerik buraya gelecek -->
+      
 
     <a href="project-detail-9.html" class="project-box">
       <img loading="lazy" src="assets/projects/proj9/1.webp" alt="Odak Ürgüp – Kent Merkezi İçin Fikir Projesi Yarışması - 1. Ödül" width="800" height="600" srcset="assets/projects/proj9/1.webp 800w, assets/projects/proj9/1.webp 400w" sizes="(max-width: 600px) 100vw, 800px" />

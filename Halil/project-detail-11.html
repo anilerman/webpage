@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    <style>
+      .logo img {
+        height: 48px;
+        width: auto;
+        object-fit: contain;
+        display: inline-block;
+      }
+    </style>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bir Uygarlık Odağı Olarak Şehir Meclisleri Binası için Fikir Projesi Yarışması – Katılımcı</title>
@@ -8,12 +16,11 @@
   <link rel="stylesheet" href="styles/detail.css" />
 </head>
 <body>
-  <header>
-    </a><a href="index.html" class="logo">TET</a></a>
+  <header class="hero-header">
+    <a href="index.html" class="logo"><img src="assets/logo.webp" alt="TET Architects Logo"></a>
     <nav>
       <a href="projects.html">Projeler</a>
       <a href="awards.html">Ödüller</a>
-      <a href="#">Arama</a>
       <a href="studio.html">Stüdyo</a>
       <a href="contact.html">İletişim</a>
     </nav>
@@ -46,19 +53,17 @@
     const thumbnailBar = document.getElementById("thumbnailBar");
 
     for (let i = 1; i <= count; i++) {
-      const img = new Image();
-      img.src = `assets/projects/proj${id}/${i}.webp`;
-      img.onerror = () => {};
-      img.onload = () => {
+      for (let i = 1; i <= count; i++) {
         const thumb = document.createElement("img");
-        thumb.src = img.src;
+        thumb.src = `assets/projects/proj${id}/thumbs/${i}.webp`;
         thumb.loading = "lazy";
+        thumb.alt = `Proje ${i}`;
         thumb.onclick = () => {
-          mainDisplay.src = thumb.src;
+          mainDisplay.src = `assets/projects/proj${id}/${i}.webp`;
         };
         thumbnailBar.appendChild(thumb);
-      };
+      }
     }
   </script>
-</body>
-</html>
+  </body>
+  </html>
