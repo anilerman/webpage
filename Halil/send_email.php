@@ -1,41 +1,40 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-    $to = "tet@tetarchitects.com";
-    $from = filter_var($_REQUEST['email'], FILTER_SANITIZE_EMAIL);
-    $name = htmlspecialchars($_REQUEST['name']);
-    $subject = htmlspecialchars($_REQUEST['subject']);
-    $cmessage = htmlspecialchars($_REQUEST['message']);
+// Form verilerini al
+$name = htmlspecialchars($_REQUEST['name'] ?? '');
+$from = filter_var($_REQUEST['email'] ?? '', FILTER_SANITIZE_EMAIL);
+$subject = htmlspecialchars($_REQUEST['subject'] ?? '');
+$message = htmlspecialchars($_REQUEST['message'] ?? '');
 
-    $headers = "From: " . $from . "\r\n";
-    $headers .= "Reply-To: " . $from . "\r\n";
-    $headers .= "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+// Alıcı
+$to = "tet@tetarchitects.com";
 
-    $subject = "You have a message from your TET Architects website.";
+// Headers - From'u hosting domaininden yap
+$headers = "From: contact@tetarchitects.com\r\n";
+$headers .= "Reply-To: " . $from . "\r\n";
+$headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 
-    $logo = 'img/logo.png';
-    $link = '#';
+// Konu
+$email_subject = "Website İletişim Formu: " . $subject;
 
-    // Mail içeriği
-    $body = "<!DOCTYPE html><html lang='en'><head><meta charset='UTF-8'><title>Express Mail</title></head><body>";
-    $body .= "<table style='width: 100%;'>";
-    $body .= "<thead style='text-align: center;'><tr><td style='border:none;' colspan='2'>";
-    $body .= "<a href='{$link}'><img src='{$logo}' alt='Logo'></a><br><br>";
-    $body .= "</td></tr></thead><tbody><tr>";
-    $body .= "<td style='border:none;'><strong>Name:</strong> {$name}</td>";
-    $body .= "<td style='border:none;'><strong>Email:</strong> {$from}</td>";
-    $body .= "</tr>";
-    $body .= "<tr><td style='border:none;'><strong>Subject:</strong> {$subject}</td></tr>";
-    $body .= "<tr><td></td></tr>";
-    $body .= "<tr><td colspan='2' style='border:none;'>{$cmessage}</td></tr>";
-    $body .= "</tbody></table>";
-    $body .= "</body></html>";
+// Mail içeriği
+$body = "<!DOCTYPE html><html lang='tr'><head><meta charset='UTF-8'><title>İletişim Formu</title></head><body>";
+$body .= "<h2>Yeni İletişim Formu Mesajı</h2>";
+$body .= "<p><strong>İsim:</strong> {$name}</p>";
+$body .= "<p><strong>Email:</strong> {$from}</p>";
+$body .= "<p><strong>Konu:</strong> {$subject}</p>";
+$body .= "<p><strong>Mesaj:</strong></p>";
+$body .= "<p>{$message}</p>";
+$body .= "</body></html>";
 
-    // Mail gönderme
-    if (mail($to, $subject, $body, $headers)) {
-        echo "Mesajınız başarıyla gönderildi.";
-    } else {
-        echo "Mesaj gönderilirken bir hata oluştu.";
-    }
-
+// Mail gönderme
+if (mail($to, $email_subject, $body, $headers)) {
+    echo "Mesajınız başarıyla gönderildi. Teşekkür ederiz!";
+} else {
+    error_log("Mail gönderme hatası: " . error_get_last()['message']);
+    echo "Üzgünüz, mesaj gönderilirken teknik bir sorun oluştu. Lütfen daha sonra tekrar deneyin.";
+}
 ?>
