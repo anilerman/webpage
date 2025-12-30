@@ -553,7 +553,7 @@ Halil/assets/projects/proj12/20.webp
 Halil/assets/projects/proj12/16.webp
 Halil/assets/projects/proj12/41.webp
 Halil/assets/projects/proj12/6.webp
-Halil/assets/logo.webp
+assets/logo.webp
 Halil/assets/awards/award10.webp
 Halil/assets/awards/award7.webp
 Halil/assets/awards/award6.webp

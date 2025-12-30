@@ -6,30 +6,41 @@ body {
   font-family: sans-serif;
 }
 .hero-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 1rem 2rem;
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92vw;
+  max-width: 1400px;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: transparent;
-  z-index: 10;
+  padding: 4px 18px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0.18) 100%);
+  backdrop-filter: blur(24px) saturate(180%) brightness(1.15);
+  -webkit-backdrop-filter: blur(24px) saturate(180%) brightness(1.15);
+  border-radius: 48px;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
+  border: 2.5px solid rgba(255,255,255,0.38);
+  transition: background 0.3s, box-shadow 0.3s;
 }
 .hero-header .logo img {
-  height: 90px;
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  display: inline-block;
 }
-nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+nav a:hover {
+  color: #0077b6;
 }
 nav a {
-  margin: 0.5rem;
+  margin-left: 32px;
   text-decoration: none;
-  color: black;
+  color: #111;
   font-weight: bold;
+  font-size: 22px;
+  transition: color 0.2s;
 }
 footer {
   text-align: center;
@@ -40,8 +51,26 @@ footer .socials img {
   width: 24px;
   margin: 0 8px;
 }
+footer .footer_logo img {
+  height: 200px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
 @media (max-width: 600px) {
-  nav {
-    flex-direction: column;
+  /* Allow nav to wrap on small screens like contact page */
+  .hero-header nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .hero-header nav a {
+    white-space: nowrap;
+    font-size: clamp(14px, 3.5vw, 18px);
+    padding: 0.25rem 0.5rem;
+  }
+  /* Ensure logo scales down on small screens so header fits better */
+  .hero-header .logo img {
+    height: 48px;
+    max-height: 56px;
   }
 }
