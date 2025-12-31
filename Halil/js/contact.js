@@ -20,10 +20,6 @@ $(document).ready(function(){
                     required: true,
                     minlength: 4
                 },
-                number: {
-                    required: true,
-                    minlength: 5
-                },
                 email: {
                     required: true,
                     email: true
@@ -42,10 +38,6 @@ $(document).ready(function(){
                     required: "come on, you have a subject, don't you?",
                     minlength: "your subject must consist of at least 4 characters"
                 },
-                number: {
-                    required: "come on, you have a number, don't you?",
-                    minlength: "your Number must consist of at least 5 characters"
-                },
                 email: {
                     required: "no email, no message"
                 },
@@ -53,22 +45,27 @@ $(document).ready(function(){
                     required: "um...yea, you have to write something to send this form.",
                     minlength: "thats all? really?"
                 }
-            },
-            submitHandler: function(form) {
+            }
+        });
+
+        // AJAX submit
+        $('#contactForm').on('submit', function(e) {
+            e.preventDefault();
+            if ($(this).valid()) {
                 $.ajax({
                     type: "POST",
                     url: "send_email.php",
-                    data: $(form).serialize(),
+                    data: $(this).serialize(),
                     success: function(response) {
                         $('#responseMessage').html(response);
-                        $('#contactForm')[0].reset(); // Formu sıfırla
+                        $('#contactForm')[0].reset();
                     },
                     error: function() {
                         $('#responseMessage').html("<div style='color: red; font-weight: bold;'>Bir hata oluştu. Lütfen tekrar deneyin.</div>");
                     }
                 });
             }
-        })
+        });
     })
         
  })(jQuery)
