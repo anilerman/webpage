@@ -31,19 +31,23 @@ $(document).ready(function(){
             },
             messages: {
                 name: {
-                    required: "come on, you have a name, don't you?",
-                    minlength: "your name must consist of at least 2 characters"
+                    required: "Size hitap edebilmemiz için lütfen bir isim giriniz.",
+                    minlength: "İsminiz en az 2 karakter uzunluğunda olmalı",
+                    color: "red"
                 },
                 subject: {
-                    required: "come on, you have a subject, don't you?",
-                    minlength: "your subject must consist of at least 4 characters"
+                    required: "Lütfen bir konu giriniz.",
+                    minlength: "Konu en az 4 karakter uzunluğunda olmalı",
+                    color: "red"
                 },
                 email: {
-                    required: "no email, no message"
+                    required: "Lütfen geçerli bir email adresi giriniz.",
+                    color: "red"
                 },
                 message: {
-                    required: "um...yea, you have to write something to send this form.",
-                    minlength: "thats all? really?"
+                    required: "Lütfen bir mesaj bırakın.",
+                    minlength: "Mesajınız en az 20 karakter uzunluğunda olmalı",
+                    color: "red"
                 }
             }
         });
