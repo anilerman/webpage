@@ -16,24 +16,24 @@ if (empty(trim($name)) ||
     trim($name) === '?' || 
     trim($name) === '*' || 
     trim($name) === '!') {
-    echo "Lütfen uygun bir isim giriniz ve isim alanı boş bırakılamaz.";
+    echo "<div style='color: red; font-weight: bold;'>Lütfen uygun bir isim giriniz ve isim alanı boş bırakılamaz.</div>";
     exit;
 }
 
 if (empty(trim($subject))) {
-    echo "Lütfen konu alanını boş bırakmayınız.";
+    echo "<div style='color: red; font-weight: bold;'>Lütfen konu alanını boş bırakmayınız.</div>";
     exit;
 }
 
 if (empty(trim($message))) {
-    echo "Lütfen mesaj alanını boş bırakmayınız.";
+    echo "<div style='color: red; font-weight: bold;'>Lütfen mesaj alanını boş bırakmayınız.</div>";
     exit;
 }
 
 // Email kontrolü
 
 if (empty($from) || !filter_var($from, FILTER_VALIDATE_EMAIL)) {
-    echo "Lütfen geçerli bir email adresi giriniz.";
+    echo "<div style='color: red; font-weight: bold;'>Lütfen geçerli bir email adresi giriniz.</div>";
     exit;
 }
 // Alıcı
@@ -60,9 +60,9 @@ $body .= "</body></html>";
 
 // Mail gönderme
 if (mail($to, $email_subject, $body, $headers)) {
-    echo "Mesajınız başarıyla gönderildi. Teşekkür ederiz!";
+    echo "<div style='color: green; font-weight: bold;'>Mesajınız başarıyla gönderildi. Teşekkür ederiz!</div>";
 } else {
     error_log("Mail gönderme hatası: " . error_get_last()['message']);
-    echo "Üzgünüz, mesaj gönderilirken teknik bir sorun oluştu. Lütfen daha sonra tekrar deneyin.";
+    echo "<div style='color: red; font-weight: bold;'>Üzgünüz, mesaj gönderilirken teknik bir sorun oluştu. Lütfen daha sonra tekrar deneyin.</div>";
 }
 ?>

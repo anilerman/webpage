@@ -55,28 +55,18 @@ $(document).ready(function(){
                 }
             },
             submitHandler: function(form) {
-                $(form).ajaxSubmit({
-                    type:"POST",
+                $.ajax({
+                    type: "POST",
+                    url: "send_email.php",
                     data: $(form).serialize(),
-                    url:"contact_process.php",
-                    success: function() {
-                        $('#contactForm :input').attr('disabled', 'disabled');
-                        $('#contactForm').fadeTo( "slow", 1, function() {
-                            $(this).find(':input').attr('disabled', 'disabled');
-                            $(this).find('label').css('cursor','default');
-                            $('#success').fadeIn()
-                            $('.modal').modal('hide');
-		                	$('#success').modal('show');
-                        })
+                    success: function(response) {
+                        $('#responseMessage').html(response);
+                        $('#contactForm')[0].reset(); // Formu sıfırla
                     },
                     error: function() {
-                        $('#contactForm').fadeTo( "slow", 1, function() {
-                            $('#error').fadeIn()
-                            $('.modal').modal('hide');
-		                	$('#error').modal('show');
-                        })
+                        $('#responseMessage').html("<div style='color: red; font-weight: bold;'>Bir hata oluştu. Lütfen tekrar deneyin.</div>");
                     }
-                })
+                });
             }
         })
     })
