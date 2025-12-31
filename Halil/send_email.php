@@ -8,6 +8,34 @@ $from = filter_var($_REQUEST['email'] ?? '', FILTER_SANITIZE_EMAIL);
 $subject = htmlspecialchars($_REQUEST['subject'] ?? '');
 $message = htmlspecialchars($_REQUEST['message'] ?? '');
 
+// İsim kontrolü
+if (empty(trim($name)) || 
+    trim($name) === '.' || 
+    trim($name) === '..' || 
+    trim($name) === ',' || 
+    trim($name) === '?' || 
+    trim($name) === '*' || 
+    trim($name) === '!') {
+    echo "Lütfen uygun bir isim giriniz ve isim alanı boş bırakılamaz.";
+    exit;
+}
+
+if (empty(trim($subject))) {
+    echo "Lütfen konu alanını boş bırakmayınız.";
+    exit;
+}
+
+if (empty(trim($message))) {
+    echo "Lütfen mesaj alanını boş bırakmayınız.";
+    exit;
+}
+
+// Email kontrolü
+
+if (empty($from) || !filter_var($from, FILTER_VALIDATE_EMAIL)) {
+    echo "Lütfen geçerli bir email adresi giriniz.";
+    exit;
+}
 // Alıcı
 $to = "tet@tetarchitects.com";
 
