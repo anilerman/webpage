@@ -1,21 +1,38 @@
 .hero {
-  height: 100vh;
-  width: 100%;
-  background-image: url('../assets/home/home1.jpg');
-  background-size: cover;
-  background-position: center;
   position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
+
+/* Use the carousel images as the visible hero slides. Ensure full-bleed cover and consistent aspect */
+.hero-slider,
+.hero-slider .owl-stage-outer,
+.hero-slider .owl-stage,
+.hero-slider .owl-item {
+  height: 100vh;
+}
+.hero-slider img {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  display: block;
+}
+
 .overlay-text {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 3rem;
-  font-weight: bold;
-  color: black;
+  font-weight: 700;
+  color: #fff;
   text-align: center;
-  z-index: 5;
+  z-index: 20;
+  text-shadow: 0 4px 18px rgba(0,0,0,0.45);
+  padding: 12px 24px;
+  border-radius: 12px;
+  backdrop-filter: blur(6px) brightness(0.85);
 }
 @media (max-width: 768px) {
   .overlay-text {

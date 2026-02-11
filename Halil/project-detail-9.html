@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <style>
-      .logo img {
-        height: 48px;
-        width: auto;
-        object-fit: contain;
-        display: inline-block;
-      }
-    </style>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Odak Ürgüp – Kent Merkezi İçin Fikir Projesi Yarışması - 1. Ödül</title>
@@ -17,9 +9,9 @@
 </head>
 <body>
   <header class="hero-header">
-    <a href="index.html" class="logo"><img src="assets/logo.webp" alt="TET Architects Logo"></a>
+    <a href="index.html" class="logo"><img src="assets/logo.webp" alt="TET Architects Logo" width="160" height="56"></a>
     <nav>
-      <a href="projects.html">Projeler</a>
+      <a href="projects.html" class="active">Projeler</a>
       <a href="awards.html">Ödüller</a>
       <a href="studio.html">Stüdyo</a>
       <a href="contact.html">İletişim</a>
@@ -47,22 +39,20 @@
   </footer>
 
   <script>
-    const count = 60;
+    const count = 31;
     const id = 9;
     const mainDisplay = document.getElementById("mainDisplay");
     const thumbnailBar = document.getElementById("thumbnailBar");
 
     for (let i = 1; i <= count; i++) {
-      for (let i = 1; i <= count; i++) {
-        const thumb = document.createElement("img");
-        thumb.src = `assets/projects/proj${id}/thumbs/${i}.webp`;
-        thumb.loading = "lazy";
-        thumb.alt = `Proje ${i}`;
-        thumb.onclick = () => {
-          mainDisplay.src = `assets/projects/proj${id}/${i}.webp`;
-        };
-        thumbnailBar.appendChild(thumb);
-      }
+      const thumb = document.createElement("img");
+      thumb.src = `assets/projects/proj${id}/${i}.webp`;
+      thumb.loading = "lazy";
+      thumb.alt = `Proje ${i}`;
+      thumb.onclick = () => {
+        mainDisplay.src = thumb.src;
+      };
+      thumbnailBar.appendChild(thumb);
     }
   </script>
   </body>

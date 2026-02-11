@@ -3,56 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projeler</title>
-  </head>
+  <title>Projeler | TET Architects</title>
+  <!-- Preconnect for faster resource loading -->
+  <link rel="preconnect" href="assets/" crossorigin>
+  <!-- Critical CSS inline for faster first paint -->
+  <style>
+    .hero-header{position:fixed;top:20px;left:50%;transform:translateX(-50%);width:min(92vw,1200px);z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:12px 28px;background:rgba(255,255,255,0.85);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-radius:100px;box-shadow:0 4px 30px rgba(0,0,0,0.08)}
+    .projects-list{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:100px 40px 60px;max-width:1400px;margin:0 auto}
+  </style>
   <link rel="stylesheet" href="styles/global.css" />
   <link rel="stylesheet" href="styles/projects.css" />
-  <style>
-      .hero-header {
-        position: fixed;
-        top: 24px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 92vw;
-        max-width: 1400px;
-        z-index: 10;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 4px 18px;
-        background: linear-gradient(90deg, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0.18) 100%);
-        backdrop-filter: blur(24px) saturate(180%) brightness(1.15);
-        -webkit-backdrop-filter: blur(24px) saturate(180%) brightness(1.15);
-        border-radius: 48px;
-        box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
-        border: 2.5px solid rgba(255,255,255,0.38);
-        transition: background 0.3s, box-shadow 0.3s;
-      }
-      .hero-header nav a {
-        color: #111;
-        font-weight: bold;
-        font-size: 22px;
-        margin-left: 32px;
-        text-decoration: none;
-        transition: color 0.2s;
-      }
-      .hero-header nav a:hover {
-        color: #0077b6;
-      }
-      .logo img {
-        height: 48px;
-        width: auto;
-        object-fit: contain;
-        display: inline-block;
-      }
-    </style>
 </head>
 <body>
   <div class="hero">
     <header class="hero-header">
-      <a href="index.html" class="logo"><img src="assets/logo.webp" alt="TET Architects Logo"></a>
+      <a href="index.html" class="logo"><img src="assets/logo.webp" alt="TET Architects Logo" width="160" height="56"></a>
       <nav>
-        <a href="projects.html">Projeler</a>
+        <a href="projects.html" class="active">Projeler</a>
         <a href="awards.html">Ödüller</a>
         <a href="studio.html">Stüdyo</a>
         <a href="contact.html">İletişim</a>
@@ -65,7 +32,7 @@
       
 
     <a href="project-detail-9.html" class="project-box">
-      <img loading="lazy" src="assets/projects/proj9/1.webp" alt="Odak Ürgüp – Kent Merkezi İçin Fikir Projesi Yarışması - 1. Ödül" width="800" height="600" srcset="assets/projects/proj9/1.webp 800w, assets/projects/proj9/1.webp 400w" sizes="(max-width: 600px) 100vw, 800px" />
+      <img loading="lazy" src="assets/projects/proj9/1.webp" alt="Odak Ürgüp – Kent Merkezi İçin Fikir Projesi Yarışması - 1. Ödül" width="400" height="300" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw" />
       <div class="overlay">
         <h3>Odak Ürgüp – Kent Merkezi İçin Fikir Projesi Yarışması - 1. Ödül</h3>
         <p class="year">2024</p>
@@ -73,7 +40,7 @@
     </a>
 
     <a href="project-detail-10.html" class="project-box">
-      <img loading="lazy" src="assets/projects/proj10/1.webp" alt="İzmir Ekonomi Üniversitesi Güzelbahçe Yerleşkesi Mimari Proje Yarışması – 4. Mansiyon" width="800" height="600" srcset="assets/projects/proj10/1.webp 800w, assets/projects/proj10/1.webp 400w" sizes="(max-width: 600px) 100vw, 800px" />
+      <img loading="lazy" src="assets/projects/proj10/1.webp" alt="İzmir Ekonomi Üniversitesi Güzelbahçe Yerleşkesi Mimari Proje Yarışması – 4. Mansiyon" width="400" height="300" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw" />
       <div class="overlay">
         <h3>İzmir Ekonomi Üniversitesi Güzelbahçe Yerleşkesi Mimari Proje Yarışması – 4. Mansiyon</h3>
         <p class="year">2022</p>
@@ -81,7 +48,7 @@
     </a>
 
     <a href="project-detail-11.html" class="project-box">
-      <img loading="lazy" src="assets/projects/proj11/1.webp" alt="Bir Uygarlık Odağı Olarak Şehir Meclisleri Binası için Fikir Projesi Yarışması – Katılımcı" width="800" height="600" srcset="assets/projects/proj11/1.webp 800w, assets/projects/proj11/1.webp 400w" sizes="(max-width: 600px) 100vw, 800px" />
+      <img loading="lazy" src="assets/projects/proj11/1.webp" alt="Bir Uygarlık Odağı Olarak Şehir Meclisleri Binası için Fikir Projesi Yarışması – Katılımcı" width="400" height="300" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw" />
       <div class="overlay">
         <h3>Bir Uygarlık Odağı Olarak Şehir Meclisleri Binası için Fikir Projesi Yarışması – Katılımcı</h3>
         <p class="year">2023</p>
@@ -89,7 +56,7 @@
     </a>
 
     <a href="project-detail-12.html" class="project-box">
-      <img loading="lazy" src="assets/projects/proj12/1.webp" alt="Büyükada Fayton Meydanı Kentsel Tasarım Yarışması – 1. Mansiyon" width="800" height="600" srcset="assets/projects/proj12/1.webp 800w, assets/projects/proj12/1.webp 400w" sizes="(max-width: 600px) 100vw, 800px" />
+      <img loading="lazy" src="assets/projects/proj12/1.webp" alt="Büyükada Fayton Meydanı Kentsel Tasarım Yarışması – 1. Mansiyon" width="400" height="300" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw" />
       <div class="overlay">
         <h3>Büyükada Fayton Meydanı Kentsel Tasarım Yarışması – 1. Mansiyon</h3>
         <p class="year">2021</p>
@@ -97,7 +64,7 @@
     </a>
 
     <a href="project-detail-13.html" class="project-box">
-      <img loading="lazy" src="assets/projects/proj13/1.webp" alt="Bursa Atatürk Spor Salonu Mimari Proje Yarışması – Satın Alma Ödülü" width="800" height="600" srcset="assets/projects/proj13/1.webp 800w, assets/projects/proj13/1.webp 400w" sizes="(max-width: 600px) 100vw, 800px" />
+      <img loading="lazy" src="assets/projects/proj13/1.webp" alt="Bursa Atatürk Spor Salonu Mimari Proje Yarışması – Satın Alma Ödülü" width="400" height="300" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw" />
       <div class="overlay">
         <h3>Bursa Atatürk Spor Salonu Mimari Proje Yarışması – Satın Alma Ödülü</h3>
         <p class="year">2020</p>
@@ -105,7 +72,7 @@
     </a>
 
     <a href="project-detail-14.html" class="project-box">
-      <img loading="lazy" src="assets/projects/proj14/1.webp" alt="Hopa Kent Merkezi Fikir Projesi Yarışması" width="800" height="600" srcset="assets/projects/proj14/1.webp 800w, assets/projects/proj14/1.webp 400w" sizes="(max-width: 600px) 100vw, 800px" />
+      <img loading="lazy" src="assets/projects/proj14/1.webp" alt="Hopa Kent Merkezi Fikir Projesi Yarışması" width="400" height="300" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw" />
       <div class="overlay">
         <h3>Hopa Kent Merkezi Fikir Projesi Yarışması</h3>
         <p class="year">2025</p>
@@ -113,7 +80,7 @@
     </a>
 
     <a href="project-detail-15.html" class="project-box">
-      <img loading="lazy" src="assets/projects/proj15/1.webp" alt="Salgınlar ve Sağlık Emekçilerini Anma" width="800" height="600" srcset="assets/projects/proj15/1.webp 800w, assets/projects/proj15/1.webp 400w" sizes="(max-width: 600px) 100vw, 800px" />
+      <img loading="lazy" src="assets/projects/proj15/1.webp" alt="Salgınlar ve Sağlık Emekçilerini Anma" width="400" height="300" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw" />
       <div class="overlay">
         <h3>Salgınlar ve Sağlık Emekçilerini Anma</h3>
         <p class="year">Tarih Yok</p>
@@ -121,7 +88,7 @@
     </a>
 
     <a href="project-detail-16.html" class="project-box">
-      <img loading="lazy" src="assets/projects/proj16/1.webp" alt="Sosyal Merkezler Mimari Proje Yarışması-3.Ödül" width="800" height="600" srcset="assets/projects/proj16/1.webp 800w, assets/projects/proj16/1.webp 400w" sizes="(max-width: 600px) 100vw, 800px" />
+      <img loading="lazy" src="assets/projects/proj16/1.webp" alt="Sosyal Merkezler Mimari Proje Yarışması-3.Ödül" width="400" height="300" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw" />
       <div class="overlay">
         <h3>Sosyal Merkezler Mimari Proje Yarışması-3.Ödül</h3>
         <p class="year">2021</p>
@@ -129,7 +96,7 @@
     </a>
 
     <a href="project-detail-17.html" class="project-box">
-      <img loading="lazy" src="assets/projects/proj17/1.webp" alt="Ulus Modern Kültür ve Sanat Merkezi Ulusal Mimari Proje Yarışması – Katılımcı" width="800" height="600" srcset="assets/projects/proj17/1.webp 800w, assets/projects/proj17/1.webp 400w" sizes="(max-width: 600px) 100vw, 800px" />
+      <img loading="lazy" src="assets/projects/proj17/1.webp" alt="Ulus Modern Kültür ve Sanat Merkezi Ulusal Mimari Proje Yarışması – Katılımcı" width="400" height="300" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw" />
       <div class="overlay">
         <h3>Ulus Modern Kültür ve Sanat Merkezi Ulusal Mimari Proje Yarışması – Katılımcı</h3>
         <p class="year">2021</p>
@@ -137,7 +104,7 @@
     </a>
 
     <a href="project-detail-18.html" class="project-box">
-      <img loading="lazy" src="assets/projects/proj18/1.webp" alt="Rams Ankara Satış Ofisi" width="800" height="600" srcset="assets/projects/proj18/1.webp 800w, assets/projects/proj18/1.webp 400w" sizes="(max-width: 600px) 100vw, 800px" />
+      <img loading="lazy" src="assets/projects/proj18/1.webp" alt="Rams Ankara Satış Ofisi" width="400" height="300" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw" />
       <div class="overlay">
         <h3>Rams Ankara Satış Ofisi</h3>
         <p class="year">2025</p>
@@ -145,7 +112,7 @@
     </a>
 
     <a href="project-detail-19.html" class="project-box">
-      <img loading="lazy" src="assets/projects/proj19/1.webp" alt="Shelton Bilkent 1-2" width="800" height="600" srcset="assets/projects/proj19/1.webp 800w, assets/projects/proj19/1.webp 400w" sizes="(max-width: 600px) 100vw, 800px" />
+      <img loading="lazy" src="assets/projects/proj19/1.webp" alt="Shelton Bilkent 1-2" width="400" height="300" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw" />
       <div class="overlay">
         <h3>Shelton Bilkent 1-2</h3>
         <p class="year">2023</p>
@@ -153,7 +120,7 @@
     </a>
 
     <a href="project-detail-20.html" class="project-box">
-      <img loading="lazy" src="assets/projects/proj20/1.webp" alt="286 Ada Gölbaşı" width="800" height="600" srcset="assets/projects/proj20/1.webp 800w, assets/projects/proj20/1.webp 400w" sizes="(max-width: 600px) 100vw, 800px" />
+      <img loading="lazy" src="assets/projects/proj20/1.webp" alt="286 Ada Gölbaşı" width="400" height="300" sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw" />
       <div class="overlay">
         <h3>286 Ada Gölbaşı</h3>
         <p class="year">2025</p>
