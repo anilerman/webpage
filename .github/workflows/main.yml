@@ -1,3 +1,4 @@
+
 name: Deploy to Hostinger
 
 on:
@@ -19,20 +20,20 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          printf '%s' "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/id_ed25519
+          echo "${{ secrets.HOSTINGER_SSH_KEY_B64 }}" | base64 -d > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -p ${{ secrets.HOSTINGER_PORT }} -H ${{ secrets.HOSTINGER_HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -p ${{ secrets.HOSTINGER_PORT }} -H ${{ secrets.HOSTINGER_HOST }} >> ~/.ssh/known_hosts || true
 
       - name: Test SSH
         run: |
-          ssh -i ~/.ssh/id_ed25519 -p "${{ secrets.HOSTINGER_PORT }}" \
-            "${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}" \
-            'echo "SSH OK"; pwd; ls -la'
+          ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.HOSTINGER_PORT }} \
+            ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }} \
+            'echo "SSH OK"; pwd'
 
       - name: Deploy to PROD (git tracked files from Halil/)
         run: |
           cd Halil
-          git ls-files -z | rsync -avz --from0 --files-from=- --delete \
+          git ls-files -z | rsync -avz --from0 --files-from=- \
             -e "ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.HOSTINGER_PORT }}" \
             ./ \
             "${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}:${{ secrets.HOSTINGER_PATH_PROD }}/"
