@@ -1,64 +1,46 @@
-name: Deploy webpage to cPanel
-run-name: "Deploy: ${{ github.event.head_commit.message }}"
+name: Deploy to Hostinger
 
 on:
   push:
-    branches: [main]
+    branches: ["main"]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install rsync
-        run: sudo apt-get update && sudo apt-get install -y rsync openssh-client
+        run: sudo apt-get update && sudo apt-get install -y rsync
 
       - name: Setup SSH
-        shell: bash
         run: |
-          set -euo pipefail
           mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
+          printf '%s' "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -p "${{ secrets.HOSTINGER_PORT }}" "${{ secrets.HOSTINGER_HOST }}" >> ~/.ssh/known_hosts
 
-          # Decode private key from base64 secret (prevents newline/format corruption)
-          echo "${{ secrets.SSH_KEY_B64 }}" | base64 -d > ~/.ssh/github_actions_ed25519
-          chmod 600 ~/.ssh/github_actions_ed25519
-
-          # Add server host key (no interactive prompt)
-          ssh-keyscan -p "${{ secrets.SSH_PORT }}" -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
-
-      - name: Verify key is readable
-        shell: bash
+      - name: Test SSH
         run: |
-          ssh-keygen -lf ~/.ssh/github_actions_ed25519
+          ssh -i ~/.ssh/id_ed25519 -p "${{ secrets.HOSTINGER_PORT }}" \
+            "${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}" \
+            'echo "SSH OK"; pwd; ls -la'
 
-      - name: Test SSH connection
-        shell: bash
+      - name: Deploy to TEMP (git tracked files from Halil/)
         run: |
-          ssh -i ~/.ssh/github_actions_ed25519 \
-            -p "${{ secrets.SSH_PORT }}" \
-            -o BatchMode=yes \
-            -o StrictHostKeyChecking=yes \
-            "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" "echo SSH_OK"
+          cd Halil
+          git ls-files -z | rsync -avz --from0 --files-from=- --delete \
+            -e "ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.HOSTINGER_PORT }}" \
+            ./ \
+            "${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}:${{ secrets.HOSTINGER_PATH_TEMP }}/"
 
-      - name: Deploy to cPanel public_html
-        shell: bash
+      - name: Deploy to PROD (git tracked files from Halil/)
         run: |
-          # IMPORTANT:
-          # Use ./Halil/ (trailing slash) to sync the CONTENTS of Halil into public_html
-          # img ve assets altındaki .webp dosyaları ve klasörleri sunucuda korunur, silinmez ve güncellenmez
-          rsync -avz --delete \
-            --exclude='.git' \
-            --exclude='img/***' \
-            --exclude='assets/logo.webp' \
-            --exclude='assets/awards/***' \
-            --exclude='assets/home/***' \
-            --exclude='assets/projects/***' \
-            --exclude='assets/studio/***' \
-            -e "ssh -i ~/.ssh/github_actions_ed25519 -p ${{ secrets.SSH_PORT }} -o BatchMode=yes -o StrictHostKeyChecking=yes" \
-            ./Halil/ \
-            "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/public_html/"
+          cd Halil
+          git ls-files -z | rsync -avz --from0 --files-from=- --delete \
+            -e "ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.HOSTINGER_PORT }}" \
+            ./ \
+            "${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}:${{ secrets.HOSTINGER_PATH_PROD }}/"
