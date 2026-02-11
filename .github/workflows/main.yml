@@ -29,14 +29,6 @@ jobs:
             "${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}" \
             'echo "SSH OK"; pwd; ls -la'
 
-      - name: Deploy to TEMP (git tracked files from Halil/)
-        run: |
-          cd Halil
-          git ls-files -z | rsync -avz --from0 --files-from=- --delete \
-            -e "ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.HOSTINGER_PORT }}" \
-            ./ \
-            "${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}:${{ secrets.HOSTINGER_PATH_TEMP }}/"
-
       - name: Deploy to PROD (git tracked files from Halil/)
         run: |
           cd Halil
