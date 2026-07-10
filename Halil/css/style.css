@@ -1038,6 +1038,23 @@ h3 {
 	color: #808080
 }
 
+/* Make the dream_service thumbnails circular and crop photos */
+.dream_service .single_dream .thumb img {
+	width: 220px;
+	height: 220px;
+	object-fit: cover;
+	border-radius: 50%;
+	display: block;
+	margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+	.dream_service .single_dream .thumb img {
+		width: 140px;
+		height: 140px;
+	}
+}
+
 .youtube_bg {
 	background-image: url(../img/video/youtube_bg.png)
 }
