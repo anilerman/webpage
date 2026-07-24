@@ -2,6 +2,13 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// Honeypot: gerçek kullanıcılar bu alanı görmez/doldurmaz. Doluysa sessizce
+// başarı mesajı dönüp e-posta göndermeden çık.
+if (!empty($_REQUEST['website'] ?? '')) {
+    echo "<div style='color: green; font-weight: bold;'>Mesajınız başarıyla gönderildi. Teşekkür ederiz!</div>";
+    exit;
+}
+
 // Form verilerini al
 $name = htmlspecialchars($_REQUEST['name'] ?? '');
 $from = filter_var($_REQUEST['email'] ?? '', FILTER_SANITIZE_EMAIL);

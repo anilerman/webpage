@@ -119,13 +119,31 @@ footer .footer_logo img {
   .hero-header {
     padding: 8px 16px;
   }
-  
+
   .hero-header nav a {
     padding: 6px 10px;
     font-size: 11px;
   }
-  
+
   .hero-header .logo img {
     height: 38px;
+  }
+}
+
+/* Lightweight scroll-reveal utility (no external library) */
+.fade-up {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.fade-up.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fade-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

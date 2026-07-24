@@ -3,35 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>İletişim</title>
+  <title>İletişim | TET Architects</title>
+  <meta name="description" content="TET Architects ile iletişime geçin. Ankara Etimesgut ofisimizin adresi, konumu ve iletişim formu.">
+  <link rel="canonical" href="https://www.tetarchitects.com/contact.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="İletişim | TET Architects">
+  <meta property="og:description" content="TET Architects ile iletişime geçin.">
+  <meta property="og:url" content="https://www.tetarchitects.com/contact.html">
+  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.webp">
   <link rel="stylesheet" href="styles/global.css" />
   <link rel="stylesheet" href="styles/contact.css" />
-  
-  <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>TET</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- <link rel="manifest" href="site.webmanifest"> -->
-  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.webp">
-  <!-- Place favicon.ico in the root directory -->
-
-  <!-- CSS here -->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/owl.carousel.min.css">
-  <link rel="stylesheet" href="css/magnific-popup.css">
-  <link rel="stylesheet" href="css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/themify-icons.css">
-  <link rel="stylesheet" href="css/nice-select.css">
-  <link rel="stylesheet" href="css/flaticon.css">
-  <link rel="stylesheet" href="css/animate.css">
-  <link rel="stylesheet" href="css/slicknav.css">
-  <link rel="stylesheet" href="css/style.css">
-  <!-- <link rel="stylesheet" href="css/responsive.css"> -->
-  <script src="js/vendor/jquery-1.12.4.min.js"></script>
-  <script src="js/jquery.validate.min.js"></script>
-  <script src="js/contact.js"></script>
 </head>
 <body>
   <div class="hero">
@@ -58,50 +39,61 @@
       </div>
     </main>
   </div>
+
   <section class="contact-section">
-    <div class="container">
-  <div class="row">
-    <div class="col-12">
-        <h2 class="contact-title">Get in Touch</h2>
+    <div class="contact-form-wrap">
+      <h2 class="contact-title">Bize Ulaşın</h2>
+      <p class="contact-subtitle">Projeniz hakkında konuşmak için formu doldurun, size dönüş yapalım.</p>
+      <form id="contactForm" novalidate>
+        <div class="field">
+          <textarea name="message" id="message" placeholder=" " required minlength="20"></textarea>
+          <label for="message">Mesajınız</label>
+          <div class="field-error">En az 20 karakter yazınız.</div>
+          <div class="char-count" id="charCount">0 / 20</div>
+        </div>
+        <!-- honeypot: hidden from real users, catches simple bots -->
+        <div class="hp-field" aria-hidden="true">
+          <label for="website">Web siteniz</label>
+          <input type="text" name="website" id="website" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <input name="name" id="name" type="text" placeholder=" " required minlength="2">
+            <label for="name">Adınız</label>
+            <div class="field-error">Lütfen adınızı giriniz.</div>
+          </div>
+          <div class="field">
+            <input name="email" id="email" type="email" placeholder=" " required>
+            <label for="email">E-posta adresiniz</label>
+            <div class="field-error">Geçerli bir e-posta giriniz.</div>
+          </div>
+        </div>
+        <div class="field">
+          <input name="subject" id="subject" type="text" placeholder=" " required minlength="4">
+          <label for="subject">Konu</label>
+          <div class="field-error">Lütfen bir konu giriniz.</div>
+        </div>
+        <button type="submit" class="send-btn">
+          <span class="spinner" aria-hidden="true"></span>
+          <span class="send-label">Gönder</span>
+          <svg class="send-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+        <div id="responseMessage" role="status" aria-live="polite"></div>
+      </form>
     </div>
-    <div class="col-lg-8">
-        <form class="form-contact contact_form" id="contactForm" novalidate="novalidate">
-            <div class="row">
-                <div class="col-12">
-                    <div class="form-group">
-                        <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder="Enter Message"></textarea>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <input class="form-control valid" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" placeholder="Enter your name">
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <input class="form-control valid" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email">
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="form-group">
-                        <input class="form-control" name="subject" id="subject" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'" placeholder="Enter Subject">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group mt-3">
-                <button type="submit" class="button button-contactForm boxed-btn">Send</button>
-            </div>
-            <div id="responseMessage" style="margin-top: 20px;"></div>
-        </form>
-    </div>
-    
-</div>
+  </section>
+
   <footer>
     <p>2025 TET, All rights reserved.</p>
     <div class="socials">
-      <a href="https://www.linkedin.com/company/83052935/admin/dashboard/"><img src="assets/icons/linkedin.webp" /></a>
-      <a href="https://www.instagram.com/tet.architects/"><img src="assets/icons/instagram.webp" /></a>
+      <a href="https://www.linkedin.com/company/83052935/admin/dashboard/"><img src="assets/icons/linkedin.webp" alt="LinkedIn"></a>
+      <a href="https://www.instagram.com/tet.architects/"><img src="assets/icons/instagram.webp" alt="Instagram"></a>
     </div>
   </footer>
+
+  <script src="js/contact.js" defer></script>
 </body>
 </html>

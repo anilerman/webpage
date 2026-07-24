@@ -1,31 +1,99 @@
 .awards-page {
-  padding: 120px 40px 60px;
+  padding: 120px 20px 70px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 .awards-page h1 {
   font-size: 2rem;
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
+
+.award-legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 2.5rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+.award-legend .legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.award-legend .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #ccc;
+  display: inline-block;
+}
+.award-legend .dot-award { border-color: #c9a227; }
+
+/* Vertical timeline */
 .award-list {
+  position: relative;
   list-style: none;
   padding: 0;
-  max-width: 900px;
-  margin: auto;
+  max-width: 780px;
+  margin: 0 auto;
+}
+.award-list::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(to bottom, #c9a227, #e5e5e5 85%);
 }
 .award-list li {
-  padding: 10px 0;
-  border-top: 1px solid #ccc;
+  position: relative;
+  padding: 16px 0 16px 34px;
   font-size: 1rem;
+}
+.award-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 22px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #ccc;
+  transition: transform 0.2s ease;
+}
+.award-list li.is-award::before {
+  border-color: #c9a227;
+}
+.award-list li:hover::before {
+  transform: scale(1.15);
 }
 .award-list a {
   text-decoration: none;
-  color: black;
+  color: #131313;
+  font-weight: 500;
 }
 .award-list a:hover {
   text-decoration: underline;
 }
+
+/* Subtle staggered reveal wave */
+.award-list li:nth-child(4n+1) { transition-delay: 0ms; }
+.award-list li:nth-child(4n+2) { transition-delay: 60ms; }
+.award-list li:nth-child(4n+3) { transition-delay: 120ms; }
+.award-list li:nth-child(4n+4) { transition-delay: 180ms; }
+
 @media (max-width: 600px) {
   .award-list li {
     font-size: 0.9rem;
+    padding: 12px 0 12px 28px;
+  }
+  .award-legend {
+    gap: 16px;
+    font-size: 0.78rem;
   }
 }
