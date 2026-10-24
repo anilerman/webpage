@@ -1,0 +1,9 @@
+[
+  {
+    "id": "user_manager_default",
+    "username": "manager",
+    "password": "ChangeMe123!",
+    "role": "admin",
+    "name": "Yönetici"
+  }
+]
