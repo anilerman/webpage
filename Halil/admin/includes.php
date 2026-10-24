@@ -12,7 +12,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 
 const ADMIN_DATA_DIR = __DIR__ . '/data';
 const ADMIN_USERS_FILE = ADMIN_DATA_DIR . '/users.json';
-const ADMIN_CONTENT_FILE = ADMIN_DATA_DIR . '/content.json';
+const ADMIN_CONTENT_FILE = __DIR__ . '/../assets/content.json';
 
 function adminEnsureStorage(): void
 {
@@ -60,7 +60,15 @@ function adminReadJson(string $path, array $default = []): array
 
 function adminWriteJson(string $path, array $payload): bool
 {
-    return (bool) file_put_contents($path, json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    $encoded = json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+    $temp = tempnam(dirname($path), '.content-');
+    if ($temp === false) return false;
+    chmod($temp, $path === ADMIN_USERS_FILE ? 0600 : 0644);
+    if (file_put_contents($temp, $encoded, LOCK_EX) === false || !rename($temp, $path)) {
+        @unlink($temp);
+        return false;
+    }
+    return true;
 }
 
 function adminIsLoggedIn(): bool
@@ -113,6 +121,7 @@ function adminLogin(string $username, string $password): bool
             continue;
         }
 
+        session_regenerate_id(true);
         $_SESSION['manager_logged_in'] = true;
         $_SESSION['manager_user'] = [
             'id' => (string) ($user['id'] ?? uniqid('user_', true)),
@@ -235,6 +244,10 @@ function adminSaveContent(array $content): bool
 function adminSortSectionItems(array $items): array
 {
     usort($items, static function (array $left, array $right): int {
+        $dateOrder = strcmp((string) ($right['date'] ?? $right['year'] ?? ''), (string) ($left['date'] ?? $left['year'] ?? ''));
+        if ($dateOrder !== 0) return $dateOrder;
+        $createdOrder = strcmp((string) ($right['created_at'] ?? ''), (string) ($left['created_at'] ?? ''));
+        if ($createdOrder !== 0) return $createdOrder;
         $leftOrder = (int) ($left['sort_order'] ?? 9999);
         $rightOrder = (int) ($right['sort_order'] ?? 9999);
 
@@ -254,22 +267,50 @@ function adminSaveSectionItem(string $section, array $item): bool
     $items = $content[$section] ?? [];
 
     $normalized = [
-        'id' => (string) ($item['id'] ?? uniqid($section . '_', true)),
+        'id' => trim((string) ($item['id'] ?? '')) ?: bin2hex(random_bytes(12)),
+        'date' => trim((string) ($item['date'] ?? '')),
+        'meta' => str_replace(["\r\n", "\r"], "\n", trim((string) ($item['meta'] ?? ''))),
+        'gallery' => array_values(array_filter($item['gallery'] ?? [], 'strlen')),
+        'initials' => trim((string) ($item['initials'] ?? '')),
+        'hue' => max(0, min(360, (int) ($item['hue'] ?? 205))),
         'title' => trim((string) ($item['title'] ?? '')),
         'year' => trim((string) ($item['year'] ?? '')),
         'category' => trim((string) ($item['category'] ?? '')),
         'subtitle' => trim((string) ($item['subtitle'] ?? '')),
-        'description' => trim((string) ($item['description'] ?? '')),
+        'description' => str_replace(["\r\n", "\r"], "\n", trim((string) ($item['description'] ?? ''))),
         'image_url' => trim((string) ($item['image_url'] ?? '')),
         'href' => trim((string) ($item['href'] ?? '')),
         'featured' => isset($item['featured']) ? (bool) $item['featured'] : false,
+        'created_at' => gmdate('Y-m-d\TH:i:s\Z'),
         'sort_order' => (int) ($item['sort_order'] ?? 9999),
     ];
 
+    if (!in_array($section, ['projects', 'awards', 'studio'], true)) return false;
+    foreach (array_merge([$normalized['image_url'], $normalized['href']], $normalized['gallery']) as $url) {
+        if ($url !== '' && !preg_match('~^(https?://[^\\s]+|assets/[a-zA-Z0-9_./% -]+|project-detail-[a-zA-Z0-9_.-]+\\.html)$~', $url)) return false;
+        if (strpos($url, '..') !== false) return false;
+    }
+    if ($normalized['date'] !== '' && !preg_match('/^\\d{4}-\\d{2}-\\d{2}$/', $normalized['date'])) return false;
+    if ($normalized['date'] !== '') {
+        [$year, $month, $day] = array_map('intval', explode('-', $normalized['date']));
+        if (!checkdate($month, $day, $year)) return false;
+        $normalized['year'] = substr($normalized['date'], 0, 4);
+    }
+    if ($normalized['year'] !== '' && !preg_match('/^\d{4}$/', $normalized['year'])) return false;
     if ($normalized['title'] === '') {
         return false;
     }
 
+    foreach ($items as $current) {
+        if (($current['id'] ?? '') === $normalized['id']) $normalized['created_at'] = $current['created_at'] ?? '';
+    }
+    if ($section === 'projects') {
+        if ($normalized['image_url'] === '' || !$normalized['gallery']) return false;
+        $existing = null;
+        foreach ($items as $current) if (($current['id'] ?? '') === $normalized['id']) $existing = $current;
+        $normalized['href'] = $existing['href'] ?? ('project-detail-' . $normalized['id'] . '.html');
+        if (!adminPublishProject($normalized)) return false;
+    }
     $updated = false;
     foreach ($items as $index => $current) {
         if ((string) ($current['id'] ?? '') === $normalized['id']) {
@@ -300,7 +341,16 @@ function adminDeleteSectionItem(string $section, string $itemId): bool
     }
 
     $content[$section] = adminSortSectionItems($filtered);
-    return adminSaveContent($content);
+    if (!adminSaveContent($content)) return false;
+    if ($section === 'projects') {
+        foreach ($items as $item) {
+            if (($item['id'] ?? '') === $itemId && preg_match('/^project-detail-[a-zA-Z0-9_.-]+\.html$/', $item['href'] ?? '')) {
+                $path = __DIR__ . '/../' . $item['href'];
+                if (is_file($path)) unlink($path);
+            }
+        }
+    }
+    return true;
 }
 
 function adminHandleImageUpload(string $fieldName, string $targetFolder): string
@@ -310,28 +360,28 @@ function adminHandleImageUpload(string $fieldName, string $targetFolder): string
     }
 
     $file = $_FILES[$fieldName];
-    if ($file['error'] !== UPLOAD_ERR_OK || empty($file['tmp_name'])) {
-        return '';
+    if ($file['error'] === UPLOAD_ERR_NO_FILE) return '';
+    if ($file['error'] !== UPLOAD_ERR_OK || empty($file['tmp_name']) || $file['size'] > 20 * 1024 * 1024) {
+        throw new RuntimeException('Görsel yüklenemedi. Dosya en fazla 20 MB olmalıdır.');
     }
 
-    $allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'];
+    $extensions = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
+    $allowed = array_keys($extensions);
     $mimeType = mime_content_type($file['tmp_name']);
-    if (!in_array($mimeType, $allowed, true)) {
-        return '';
-    }
+    if (!in_array($mimeType, $allowed, true)) throw new RuntimeException('Yalnızca JPG, PNG ve WebP yüklenebilir.');
 
     $baseDir = __DIR__ . '/../' . trim($targetFolder, '/');
     if (!is_dir($baseDir)) {
         mkdir($baseDir, 0755, true);
     }
 
-    $fileName = uniqid('upload_', true) . '.' . pathinfo($file['name'], PATHINFO_EXTENSION);
+    $fileName = uniqid('upload_', true) . '.' . $extensions[$mimeType];
     $targetPath = $baseDir . '/' . $fileName;
     if (move_uploaded_file($file['tmp_name'], $targetPath)) {
         return $targetFolder . '/' . $fileName;
     }
 
-    return '';
+    throw new RuntimeException('Görsel kaydedilemedi. Klasör izinlerini kontrol edin.');
 }
 
 function adminFlashMessage(string $type, string $message): void
@@ -364,3 +414,34 @@ function adminStatusBadge(string $role): string
 }
 
 adminEnsureStorage();
+
+function adminCsrfToken(): string {
+    if (empty($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(random_bytes(32));
+    return $_SESSION['csrf'];
+}
+function adminRequireCsrf(): void {
+    if (!hash_equals(adminCsrfToken(), (string) ($_POST['csrf'] ?? ''))) {
+        http_response_code(403);
+        exit('Oturum doğrulanamadı. Sayfayı yenileyin.');
+    }
+}
+
+function adminPublishProject(array $project): bool
+{
+    $path = __DIR__ . '/../' . $project['href'];
+    $html = file_get_contents(is_file($path) ? $path : __DIR__ . '/project-template.html');
+    if ($html === false) return false;
+    $fields = [
+        '~<title>.*?</title>~s' => '<title>' . adminEscape($project['title']) . ' | TET Architects</title>',
+        '~(<div class="project-info">\s*)<h2>.*?</h2>~s' => '$info',
+        '~<p class="meta">.*?</p>~s' => '<p class="meta">' . nl2br(adminEscape($project['meta'])) . '</p>',
+        '~<p class="desc">.*?</p>~s' => '<p class="desc">' . nl2br(adminEscape($project['description'])) . '</p>',
+        '~<img id="mainDisplay"[^>]*>~s' => '<img id="mainDisplay" src="' . adminEscape($project['image_url']) . '" alt="' . adminEscape($project['title']) . '" />',
+    ];
+    foreach ($fields as $pattern => $replacement) {
+        $html = preg_replace_callback($pattern, static function ($match) use ($replacement, $project) {
+            return $replacement === '$info' ? $match[1] . '<h2>' . adminEscape($project['title']) . '</h2>' : $replacement;
+        }, $html);
+    }
+    return file_put_contents($path, $html, LOCK_EX) !== false;
+}

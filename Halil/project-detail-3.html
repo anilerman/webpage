@@ -106,6 +106,7 @@
       });
     });
   </script>
+  <script src="js/site-content.js" defer></script>
 </body>
 </html>
 
@@ -117,22 +118,7 @@
     </div>
   </footer>
 
-  <script>
-    const count = 24;
-    const id = 3;
-    const mainDisplay = document.getElementById("mainDisplay");
-    const thumbnailBar = document.getElementById("thumbnailBar");
 
-    for (let i = 1; i <= count; i++) {
-      const thumb = document.createElement("img");
-      thumb.src = `assets/projects/proj${id}/${i}.webp`;
-      thumb.loading = "lazy";
-      thumb.alt = `Proje ${i}`;
-      thumb.onclick = () => {
-        mainDisplay.src = thumb.src;
-      };
-      thumbnailBar.appendChild(thumb);
-    }
-  </script>
-  </body>
+    <script src="js/site-content.js" defer></script>
+</body>
   </html>
