@@ -238,7 +238,7 @@ function adminGetContent(): array
 function adminSaveContent(array $content): bool
 {
     adminEnsureStorage();
-    return adminWriteJson(ADMIN_CONTENT_FILE, $content);
+    return adminWriteJson(ADMIN_CONTENT_FILE, $content) && adminPublishProjectList($content['projects'] ?? []);
 }
 
 function adminSortSectionItems(array $items): array
@@ -444,4 +444,33 @@ function adminPublishProject(array $project): bool
         }, $html);
     }
     return file_put_contents($path, $html, LOCK_EX) !== false;
+}
+
+
+function adminPublishProjectList(array $projects): bool
+{
+    $path = __DIR__ . '/../projects.html';
+    $html = file_get_contents($path);
+    if ($html === false) return false;
+    $cards = [];
+    foreach (adminSortSectionItems($projects) as $project) {
+        $title = adminEscape((string) ($project['title'] ?? ''));
+        $cards[] = '<a class="project-box" href="' . adminEscape((string) ($project['href'] ?? '')) . '">'
+            . '<img loading="lazy" src="' . adminEscape((string) ($project['image_url'] ?? '')) . '" alt="' . $title . '" width="400" height="300">'
+            . '<div class="overlay"><h3>' . $title . '</h3><p class="year">' . adminEscape((string) ($project['year'] ?? '')) . '</p></div></a>';
+    }
+    $count = 0;
+    $html = preg_replace_callback('~<!-- PROJECT_CARDS_START -->.*?<!-- PROJECT_CARDS_END -->~s',
+        static function () use ($cards) {
+            return "<!-- PROJECT_CARDS_START -->\n" . implode("\n", $cards) . "\n<!-- PROJECT_CARDS_END -->";
+        }, $html, 1, $count);
+    if ($count !== 1) return false;
+    $temp = tempnam(dirname($path), '.projects-');
+    if ($temp === false) return false;
+    chmod($temp, 0644);
+    if (file_put_contents($temp, $html, LOCK_EX) === false || !rename($temp, $path)) {
+        @unlink($temp);
+        return false;
+    }
+    return true;
 }
