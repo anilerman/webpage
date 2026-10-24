@@ -37,8 +37,6 @@
       return;
     }
 
-    // Honeypot: if a bot filled the hidden "website" field, pretend it worked
-    // and stop, so it doesn't retry with a smarter payload.
     var honeypot = form.querySelector('#website');
     if (honeypot && honeypot.value) {
       responseBox.innerHTML = "<div style='color: green; font-weight: bold;'>Mesajınız başarıyla gönderildi. Teşekkür ederiz!</div>";
